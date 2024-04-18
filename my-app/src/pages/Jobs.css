@@ -1,0 +1,129 @@
+.job {
+  padding: 3rem;
+  background-color: #f5f5f5; /* Light gray background */
+}
+
+.job-listings {
+  position: sticky;
+  top: 0;
+  height: calc(100vh - 20px); /* Adjust height as needed */
+  overflow-y: auto; /* Enable vertical scrolling */
+  gap: 1rem;
+  scrollbar-width: none; /* For Firefox */
+  -ms-overflow-style: none; /* For Internet Explorer and Edge */
+}
+
+.job-listings::-webkit-scrollbar {
+  display: none; /* For Chrome, Safari, and Opera */
+}
+
+.job-card {
+  padding: 16px;
+  background-color: #fff; /* White card background */
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  border-radius: 4px; /* Rounded corners */
+  cursor: pointer; /* Indicate clickable element */
+  margin-bottom: 1rem;
+}
+
+.job-card:hover {
+  box-shadow: 0 4px 5px rgba(0, 0, 0, 0.2); /* Increase shadow on hover */
+}
+
+.job-description-container {
+  padding-left: 20px;
+}
+
+.job-description {
+  background-color: #fff; /* White background */
+  padding: 20px;
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  border-radius: 4px; /* Rounded corners */
+}
+
+.job-card h1 {
+  font-size: 27px;
+  font-weight: bold;
+}
+
+.job-card h2 {
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.job-card p {
+  font-size: 15px;
+}
+
+@media screen and (max-width: 768px) {
+  .job {
+    padding: 2rem;
+  }
+
+  .job-card,
+  .job-description {
+    width: 100%; /* Full width on mobile */
+  }
+
+  .job-description-container {
+    padding-top: 20px; /* Add space between listings and description */
+    padding-left: 0;
+  }
+}
+
+.job-description {
+  transition: transform 0.3s ease-out, opacity 0.3s ease-out; /* Smooth transition */
+}
+
+.fade-in {
+  opacity: 0;
+  transform: scale(0.95);
+  animation: fadeIn 0.3s forwards;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.skills-breadcrumbs {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.skills-breadcrumbs li {
+  background-color: #eee;
+  border-radius: 15px;
+  padding: 5px 10px;
+  margin-right: 5px;
+  margin-bottom: 5px;
+}
+
+/* Removed unused CSS related to job-description-container positioning on mobile */
+@media screen and (max-width: 768px) {
+  .job {
+    padding: 2rem;
+  }
+
+  .job-card,
+  .job-description {
+    width: 100%; /* Full width on mobile */
+  }
+
+  .job-description-container {
+    padding-top: 20px; /* Add space between listings and description */
+    padding-left: 0;
+    position: fixed; /* Make description card fixed on mobile */
+    bottom: 10rem; /* Initial offset from the bottom */
+    left: 0;
+    right: 0;
+    background-color: #fff; /* Set background color for better visibility */
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2); /* Add subtle shadow */
+    border-radius: 4px; /* Rounded corners */
+    transition: transform 0.3s ease-out, bottom 0.3s ease-out; /* Smooth animations */
+  }
+}
