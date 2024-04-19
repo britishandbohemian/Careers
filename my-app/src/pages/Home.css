@@ -1,0 +1,48 @@
+.home-page {
+  text-align: center;
+}
+
+.block {
+  height: 100vh;
+  background-color: #333; 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero {
+  background: url('https://example.com/your-background.jpg') no-repeat center center/cover;
+}
+
+.content {
+  width: 80%;
+  margin: 10px 0;  
+  padding: 20px; 
+  background-color: white; 
+  color: black; 
+  border-radius: 8px; 
+}
+
+.horizontal {
+  height: 100px;  
+}
+
+.vertical {
+  height: 200px;  
+  width: 50%;  
+}
+
+@media (max-width: 768px) {
+  .block {
+    flex-direction: column; 
+  }
+
+  .content {
+    width: 90%;  
+  }
+
+  .vertical {
+    width: 90%;  
+  }
+}

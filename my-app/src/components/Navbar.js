@@ -1,33 +1,72 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import './Navbar.css'; // Import your CSS file
+import { AuthContext } from '../context/AuthContext';
+
 
 function Navbar() {
+  const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
+  const location = useLocation(); // Get current location for active link highlighting
+  const navigate = useNavigate(); // Function for programmatic navigation
+
+  const handleSignOut = (e) => {
+    e.preventDefault();
+    setIsLoggedIn(false); // Update user logged-in state
+    navigate('/signin'); // Redirect to home page on sign out
+  };
+
   return (
     <nav className="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
       <div className="container">
-        <a className="navbar-brand" href="/">Think  <span style={{ paddingLeft: 2 }}>Career Group</span></a>
+        <Link className="navbar-brand" to="/">Think <span style={{ paddingLeft: 2 }}>Career Group</span></Link>
         <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
           <span className="fa fa-bars"></span> Menu
         </button>
         <div className="collapse navbar-collapse" id="ftco-nav">
           <ul className="navbar-nav m-auto">
-            <li className="nav-item active"><a href="/" className="nav-link">Home</a></li>
-            <li className="nav-item dropdown">
-              <a className="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">About Us</a>
-              <div className="dropdown-menu" aria-labelledby="dropdown04">
-                <a className="dropdown-item" href="#">Who we are</a>
-                <a className="dropdown-item" href="#">What We Do</a>
-                <a className="dropdown-item" href="#">Brands</a>
-              </div>
+            <li className={`nav-item ${location.pathname === '/' ? 'active' : ''}`}>
+              <Link to="/" className="nav-link">Home</Link>
             </li>
-            <li className="nav-item"><a href="/jobs" className="nav-link">Jobs</a></li>
-            <li className="nav-item"><a href="#" className="nav-link">Blog</a></li>
-            <li className="nav-item"><a href="#" className="nav-link">Contact Us</a></li>
+            <li className={`nav-item ${location.pathname === '/jobs' ? 'active' : ''}`}>
+              <Link to="/jobs" className="nav-link">Jobs</Link>
+            </li>
+            <li className={`nav-item ${location.pathname === '/blog' ? 'active' : ''}`}>
+              <Link to="/blog" className="nav-link">Blog</Link>
+            </li>
+
+            <li className={`nav-item ${location.pathname === '/brands' ? 'active' : ''}`}>
+  <Link to="/brands" className="nav-link">Brands</Link>
+  {console.log(location.pathname === '/brands')} {/* Temporary for debugging */}
+</li>
+
+            <li className={`nav-item ${location.pathname === '/contact-us' ? 'active' : ''}`}>
+              <Link to="/contact-us" className="nav-link">Contact Us</Link>
+            </li>
           </ul>
           <div className="d-flex align-items-center">
-            <a href="/signin" className="nav-link"><span className="material-icons" style={{color:'black'}}>person</span> </a>
-            <a href="/employer" className="nav-link"><span className="material-icons" style={{color:'black'}}>business_center</span></a>
-          </div>
+  {isLoggedIn ? (
+    <>
+      <button style={{backgroundColor:"white",color:'Black'}} className="nav-link" onClick={handleSignOut}>
+        <span className="material-icons">exit_to_app</span>
+      </button>
+      <Link to="/profile" className="nav-link">  {/* Link to your profile page */}
+        <span className="material-icons">settings</span>
+      </Link>
+    </>
+  ) : (
+    <Link to="/signin" className="nav-link">
+      <span className="material-icons">person</span>
+    </Link>
+  )}
+  <Link to="/employer" className="nav-link">
+    <span className="material-icons" style={{ color: 'black' }}>business_center</span>
+  </Link>
+</div>
+
+
+
+
+
         </div>
       </div>
     </nav>

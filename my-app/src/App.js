@@ -1,34 +1,39 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Navbar from './components/Navbar'; // Adjust the path to where Navbar is saved
-import SearchBar from './components/SearchBar'; // Ensure this path matches where SearchBar is saved
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import Navbar from './components/Navbar';
+import SearchBar from './components/SearchBar';
 import HomePage from './pages/HomePage';
 import AboutPage from './pages/AboutPage';
 import JobsPage from './pages/JobsPage';
-import JobDetail from './pages/JobDetail'; // Assuming you have a separate JobDetail page for individual job view
+import RegisterPage from './pages/SignUp';
+import SignInPage from './pages/SignIn';
 
-function App() {
-  const handleSearch = (searchQuery) => {
-    console.log(`Search initiated for: ${searchQuery}`);
-    // Placeholder for search functionality
-  };
+function AppContent() {
+  const location = useLocation();
+
+  // Correct the path check for hiding the SearchBar
+  const showSearchBar = !['/register', '/signin', '/contact-us', '/brands', '/blog'].includes(location.pathname);
 
   return (
+    <div className="App">
+      <Navbar />
+      {showSearchBar && <SearchBar />}
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/about" element={<AboutPage />} />
+        <Route path="/jobs" element={<JobsPage />} />
+        <Route path="/register" element={<RegisterPage />} />
+        <Route path="/signin" element={<SignInPage />} />
+      </Routes>
+    </div>
+  );
+}
+
+// Wrap AppContent inside Router to use useLocation
+function App() {
+  return (
     <Router>
-      <div className="App">
-        <header className="App-header">
-          <Navbar />
-          <SearchBar onSearch={handleSearch} />
-        </header>
-        <main>
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/about" element={<AboutPage />} />
-            <Route path="/jobs" element={<JobsPage />} />
-            <Route path="/jobs/:id" element={<JobDetail />} />  {/* Adding a route for job details */}
-          </Routes>
-        </main>
-      </div>
+      <AppContent />
     </Router>
   );
 }

@@ -1,0 +1,49 @@
+.signin-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh; /* Maintain full viewport height */
+}
+
+.header{
+  font-family: 'Montserrat !important';
+}
+
+/* Style the Card component using Material UI styles */
+.MuiCard-root {
+  background-color: white;
+  border-radius: 4px;
+  padding: 16px; /* Adjust padding as needed */
+  box-shadow: none;
+}
+
+/* Assuming your app's font family is set in a global CSS file (remove if not needed) */
+.MuiInputLabel-root,
+.MuiInputBase-input {
+  font-family: "Montserrat" !important; 
+}
+
+.signin-container h1 {
+  text-transform: uppercase;
+  letter-spacing: 5px;
+  font-size: 25px;
+  margin-bottom: 20px; /* Add some margin below the header */
+  font-weight: 500; /* Set font weight for a bolder look */
+  font-family: 'Montserrat';
+}
+
+/* Style the buttons (optional) */
+.signin-container button {
+  /* Customize button styles here if needed */
+  font-family: 'Montserrat', sans-serif !important;
+
+}
+
+
+
+/* Override default font family with Montserrat */
+body,
+html {
+  font-family: 'Montserrat', sans-serif !important;
+}

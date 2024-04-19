@@ -1,37 +1,73 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Jobs.css';
-import jobsData from '../Data'; // Update the path according to your file structure
-import { useNavigate } from 'react-router-dom';
+import jobsData from '../Data'; // Make sure the path matches your file structure
+import { useNavigate, useLocation } from 'react-router-dom';
 
 const Jobs = () => {
   const [selectedJob, setSelectedJob] = useState(jobsData[0]);
-  const [isDescriptionOpen, setIsDescriptionOpen] = useState(true); 
+  const [isDescriptionOpen, setIsDescriptionOpen] = useState(true);
+  const [filteredJobs, setFilteredJobs] = useState(jobsData);
   const navigate = useNavigate();
+  const location = useLocation();
 
-  const handleJobClick = (event, jobId) => {
-    event.stopPropagation(); 
-    if (window.innerWidth < 768) {
-      navigate(`/job-details/${jobId}`);
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const title = params.get('title');
+    const locations = params.get('locations') ? params.get('locations').split(',') : [];
+  
+    // Initialize filtered here to ensure it's available in the entire scope
+    let filtered = [];
+  
+    // If both title and locations are empty, show all jobs
+    if (!title && locations.length === 0) {
+      filtered = jobsData; // Assign all jobs if no filter is specified
     } else {
-      const job = jobsData.find(job => job.id === jobId);
-      setSelectedJob(job);
-      setIsDescriptionOpen(true);
+      // Apply filters based on title and locations
+      filtered = jobsData.filter(job => {
+        const titleMatch = title ? job.title.toLowerCase().includes(title.toLowerCase()) : true;
+        const locationMatch = locations.length ? locations.some(loc => job.location.toLowerCase().includes(loc.toLowerCase())) : true;
+        return titleMatch && locationMatch;
+      });
     }
+  
+    setFilteredJobs(filtered);
+  
+    // Set the first job as selected if filtered jobs are not empty
+    if (filtered.length > 0) {
+      setSelectedJob(filtered[0]);
+      setIsDescriptionOpen(true);
+    } else {
+      setSelectedJob(null);
+      setIsDescriptionOpen(false);
+    }
+  }, [location.search]);  // Dependency on location.search to rerun when search parameters change
+  
+  const handleJobClick = (event, jobId) => {
+    event.stopPropagation();
+    const job = filteredJobs.find(job => job.id === jobId);
+    setSelectedJob(job);
+    setIsDescriptionOpen(true);
   };
 
   const handleViewDetailsClick = (event, jobId) => {
-    event.stopPropagation(); 
-    const job = jobsData.find(job => job.id === jobId);
-    setSelectedJob(job);
-    setIsDescriptionOpen(prev => !prev); 
+    event.stopPropagation();
+    const job = filteredJobs.find(job => job.id === jobId);
+  
+    if (window.innerWidth < 768) {
+      navigate(`/jobs/${jobId}`); // Navigate to the job detail page on smaller screens
+    } else {
+      // Set the selected job and ensure the details panel is open
+      setSelectedJob(job);
+      setIsDescriptionOpen(true); // Always open the panel when a job is clicked
+    }
   };
-
+  
   return (
     <section className="job">
       <div className="container">
         <div className="row">
           <div className="col-md-5 job-listings">
-            {jobsData.map((job) => (
+            {filteredJobs.map((job) => (
               <div className="job-card" key={job.id} onClick={(event) => handleJobClick(event, job.id)}>
                 <h1>{job.title}</h1>
                 <h2>{job.company}</h2>
@@ -39,7 +75,7 @@ const Jobs = () => {
                   <span>{job.pay}</span>
                   <span> - </span>
                   <span>{job.type}</span>
-                  <span> - </span
+                  <span> - </span>
                   <span>{job.location}</span>
                 </div>
                 <p>{job.description.slice(0, 100)}...</p>
