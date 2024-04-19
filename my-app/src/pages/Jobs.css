@@ -1,6 +1,5 @@
 .job {
   padding: 3rem;
-  background-color: #f5f5f5; /* Light gray background */
 }
 
 .job-listings {
@@ -57,8 +56,18 @@
 
 @media screen and (max-width: 768px) {
   .job {
-    padding: 2rem;
+    padding: 0.3rem;
   }
+
+  .search-form{
+    width: 100%;
+
+    border-radius: 10px;
+    border: 2px solid rgb(40, 40, 40);
+  }
+
+  .job-description-container {display: none;}
+
 
   .job-card,
   .job-description {
@@ -68,11 +77,27 @@
   .job-description-container {
     padding-top: 20px; /* Add space between listings and description */
     padding-left: 0;
+    position: fixed; /* Make description card fixed on mobile */
+    bottom: 10rem; /* Initial offset from the bottom */
+    left: 0;
+    right: 0;
+    background-color: #212529; /* Dark background color */
+    color: #fff; /* Light text color for better contrast */
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.4); /* Stronger shadow */
+    border-radius: 4px; /* Rounded corners */
+    transition: transform 0.3s ease-out, bottom 0.3s ease-out;
   }
-}
 
-.job-description {
-  transition: transform 0.3s ease-out, opacity 0.3s ease-out; /* Smooth transition */
+  .job-description-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+
+  .job-description-header img {
+    width: 50px; /* Adjust logo size as needed */
+  }
 }
 
 .fade-in {
@@ -101,29 +126,39 @@
   padding: 5px 10px;
   margin-right: 5px;
   margin-bottom: 5px;
+  color: #212529; /* Dark text color for skills on dark background */
 }
 
-/* Removed unused CSS related to job-description-container positioning on mobile */
-@media screen and (max-width: 768px) {
-  .job {
-    padding: 2rem;
-  }
 
-  .job-card,
-  .job-description {
-    width: 100%; /* Full width on mobile */
-  }
 
-  .job-description-container {
-    padding-top: 20px; /* Add space between listings and description */
-    padding-left: 0;
-    position: fixed; /* Make description card fixed on mobile */
-    bottom: 10rem; /* Initial offset from the bottom */
-    left: 0;
-    right: 0;
-    background-color: #fff; /* Set background color for better visibility */
-    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2); /* Add subtle shadow */
-    border-radius: 4px; /* Rounded corners */
-    transition: transform 0.3s ease-out, bottom 0.3s ease-out; /* Smooth animations */
-  }
+
+.job-card {
+  padding: 16px;
+  background-color: #fff; /* White card background */
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  border-radius: 4px; /* Rounded corners */
+  cursor: pointer; /* Indicate clickable element */
+  margin-bottom: 1rem;
+  border: 1px solid #ddd; /* Grey border around the card */
 }
+
+.job-description-header {
+  display: flex;
+  justify-content: space-between; /* Distribute items horizontally */
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.job-description-header img {
+  width: 50px; /* Adjust for desired width */
+  max-width: 50px; /* Ensures width doesn't exceed 50px */
+  max-height: 50px; /* Ensures height doesn't exceed 50px */
+  border-radius: 100%; /* Circular image */
+  margin-right: 1rem; /* Add space between image and text */
+}
+
+.job-card h1,
+.job-card h2 {
+  margin: 0; /* Remove default margins from headings for better spacing */
+}
+
