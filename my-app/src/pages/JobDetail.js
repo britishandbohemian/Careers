@@ -1,13 +1,29 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import jobsData from '../Data'; // Ensure path is correct
+import { db } from '../firebaseConfig'; // Ensure path is correct
+import { doc, getDoc } from 'firebase/firestore';
 import './JobDetails.css';
 
 const JobDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate(); // Hook for navigation
+  const [job, setJob] = useState(null); // State to store the job details
 
-  const job = jobsData.find(job => job.id === Number(id));
+  useEffect(() => {
+    // Function to fetch a single job from Firestore
+    const fetchJob = async () => {
+      const docRef = doc(db, 'Joba', id); // Make sure 'Joba' is your collection name
+      const docSnap = await getDoc(docRef);
+
+      if (docSnap.exists()) {
+        setJob({ id: docSnap.id, ...docSnap.data() });
+      } else {
+        console.log("No such document!");
+      }
+    };
+
+    fetchJob();
+  }, [id]);
 
   const handleBack = () => {
     navigate(-1); // Go back one page in history

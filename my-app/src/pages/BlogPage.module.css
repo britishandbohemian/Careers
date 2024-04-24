@@ -1,0 +1,49 @@
+.blog-container {
+  padding: 20px; /* Adds padding around the blog cards area */
+}
+
+.blogCard {
+  display: grid;
+  grid-template-rows: auto auto auto auto;
+  flex-direction: column;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  overflow: hidden;
+  /* min-height: 22rem; */
+  padding: 0rem;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.blog-card img {
+  width: 100%; /* Full width of the card */
+  height: auto; /* Maintain aspect ratio */
+  object-fit: cover; /* Cover the space without stretching */
+}
+
+.card-content {
+  padding: 10px;
+  background: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.card-title {
+  font-size: 16px; /* Suitable font size for mobile and desktop */
+  font-weight: bold;
+  color: #333;
+}
+
+.card {
+  border: 1px solid black;
+  margin: 2rem auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  /* padding: 2rem; */
+}
+
+.card-date {
+  font-size: 14px;
+  color: #666;
+  margin-top: 5px;
+}

@@ -1,0 +1,77 @@
+/* General Styles for the Form Container */
+.profile-form-container {
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    min-height: 100vh;
+    padding: 20px;
+    flex-direction: column; /* Stack content vertically */
+  }
+  
+  .profile-information {
+    display: flex;
+    justify-content: left;
+    flex-direction: column;
+    padding: 1rem;
+  }
+
+  .card{
+border: 1px solid black;
+margin: 2rem auto;
+border-radius: 8px;
+box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+padding: 2rem;
+  }
+  
+  .profile-form {
+    width: 100%;
+    max-width: 600px;
+    padding: 20px;
+
+  }
+  
+  /* Styles for individual form groups */
+  .profile-form .form-group {
+    margin-bottom: 20px;
+    background: #f8f9fa;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  }
+  
+  .profile-form label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  /* Input styles */
+  .profile-form input[type="text"],
+  .profile-form input[type="email"],
+  .profile-form input[type="tel"],
+  .profile-form input[type="date"],
+  .profile-form input[type="url"],
+  .profile-form textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .profile-form textarea {
+    resize: vertical;
+  }
+  
+  /* Button styles */
+  .profile-form button {
+    background-color: #007bff;
+    color: white;
+  }  
+
+/* Optional: Add some responsiveness for smaller screens */
+@media screen and (max-width: 768px) {
+    
+  .profile-form-container{
+    padding: 0px;
+  }
+  }

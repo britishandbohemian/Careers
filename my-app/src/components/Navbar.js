@@ -35,7 +35,7 @@ function Navbar() {
             </li>
 
             <li className={`nav-item ${location.pathname === '/brands' ? 'active' : ''}`}>
-  <Link to="/brands" className="nav-link">Brands</Link>
+  <Link to="/groups" className="nav-link">Groups</Link>
   {console.log(location.pathname === '/brands')} {/* Temporary for debugging */}
 </li>
 

@@ -1,0 +1,26 @@
+{
+    "users": [
+        {
+            "id": "1",
+            "username": "johnDoe",
+            "password": "123456",
+            "profile": {
+                "name": "John Doe",
+                "email": "john@example.com",
+                "jobTitle": "Software Engineer",
+                "location": "Remote"
+            }
+        },
+        {
+            "id": "2",
+            "username": "janeDoe",
+            "password": "password",
+            "profile": {
+                "name": "Jane Doe",
+                "email": "jane@example.com",
+                "jobTitle": "Data Analyst",
+                "location": "New York"
+            }
+        }
+    ]
+}

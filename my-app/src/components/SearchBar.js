@@ -68,7 +68,7 @@ function SearchBar() {
         <input
           type="text"
           className="search-input"
-          placeholder="Job title"
+          placeholder="Job title, Keyword, Field"
           value={jobTitle}
           onChange={handleInputChange}
         />

@@ -1,5 +1,5 @@
 import React, { createContext, useState } from 'react';
-import { users } from '../UsersData'; // Import users directly if path issues are suspected
+import { authenticateUser } from '../UserFunctions'; // Assuming userFunctions.js contains your authenticateUser
 
 export const AuthContext = createContext({
   isLoggedIn: false,
@@ -8,22 +8,30 @@ export const AuthContext = createContext({
 });
 
 export function AuthProvider({ children }) {
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-    const authenticateUser = (username, password) => {
-      const user = users.find(u => u.username === username && u.password === password);
-      return user ? user.profile : null;
-    };
+  const login = () => {
+    console.log("User logged in");
+    setIsLoggedIn(true);
+  };
 
-    const value = {
-        isLoggedIn,
-        setIsLoggedIn,
-        authenticateUser
-    };
+  const logout = () => {
+    console.log("User logged out");
+    setIsLoggedIn(false);
+  };
 
-    return (
-        <AuthContext.Provider value={value}>
-            {children}
-        </AuthContext.Provider>
-    );
+  // Pass the authenticateUser function along with other values in the context
+  const value = {
+    isLoggedIn,
+    setIsLoggedIn,
+    authenticateUser, // Now available through AuthContext
+    login,
+    logout
+  };
+
+  return (
+    <AuthContext.Provider value={value}>
+      {children}
+    </AuthContext.Provider>
+  );
 }

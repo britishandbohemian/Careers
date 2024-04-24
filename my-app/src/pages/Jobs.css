@@ -1,37 +1,55 @@
 .job {
-  padding: 3rem;
+  display: flex;
+  justify-content: center;
+  padding: 3rem 4rem; /* Adjust padding for responsiveness */
 }
 
 .job-listings {
   position: sticky;
   top: 0;
-  height: calc(100vh - 20px); /* Adjust height as needed */
-  overflow-y: auto; /* Enable vertical scrolling */
-  gap: 1rem;
-  scrollbar-width: none; /* For Firefox */
-  -ms-overflow-style: none; /* For Internet Explorer and Edge */
+  height: calc(100vh - 20px);
+  overflow-y: auto;
+  width: 100%; /* Full width on mobile */
 }
+
+.job-card {
+  padding: 16px;
+  background-color: #fff;
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  cursor: pointer;
+  margin-bottom: 1rem;
+}
+
+@media screen and (min-width: 768px) {
+
+  
+  .job-listings {
+    width: 30%; /* Smaller width on larger screens */
+  }
+  .job-description-container {
+    width: 70%;
+    display: block; /* Ensure it's displayed on larger screens */
+  }
+}
+
+
+.job-description-container {
+  width: 70%; /* Adjust based on your design needs */
+  padding-left: 20px; /* Space between listings and description */
+}
+
 
 .job-listings::-webkit-scrollbar {
   display: none; /* For Chrome, Safari, and Opera */
 }
 
-.job-card {
-  padding: 16px;
-  background-color: #fff; /* White card background */
-  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-  border-radius: 4px; /* Rounded corners */
-  cursor: pointer; /* Indicate clickable element */
-  margin-bottom: 1rem;
-}
+
 
 .job-card:hover {
   box-shadow: 0 4px 5px rgba(0, 0, 0, 0.2); /* Increase shadow on hover */
 }
 
-.job-description-container {
-  padding-left: 20px;
-}
 
 .job-description {
   background-color: #fff; /* White background */
@@ -133,15 +151,6 @@
 
 
 
-.job-card {
-  padding: 16px;
-  background-color: #fff; /* White card background */
-  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-  border-radius: 4px; /* Rounded corners */
-  cursor: pointer; /* Indicate clickable element */
-  margin-bottom: 1rem;
-  border: 1px solid #ddd; /* Grey border around the card */
-}
 
 .job-description-header {
   display: flex;

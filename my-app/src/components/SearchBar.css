@@ -78,11 +78,18 @@
     width: 100%; /* Full width on smaller screens */
   }
 
+
   .search-input, .search-button {
     width: 100%; /* Full width for inputs and button on mobile */
     margin-bottom: 10px; /* Add space between elements */
   }
+
+  .searchbtns{
+    display: grid;
+    grid-template-columns: 80% 1fr !important;
+  }
 }
+
 
 .searchbtns{
   display: grid;
