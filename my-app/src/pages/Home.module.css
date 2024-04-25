@@ -11,9 +11,15 @@
   justify-content: center;
 }
 
-.hero {
-  background: url('https://example.com/your-background.jpg') no-repeat center center/cover;
+.searchcontainer {
+  position: fixed !important;
+  width: 100%;
+  z-index: 1000;
+  background-color: white;
 }
+
+
+
 
 .content {
   width: 80%;

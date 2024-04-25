@@ -18,7 +18,7 @@ function AppContent() {
   const location = useLocation(); // Correct use of useLocation inside Router context
 
   // Define paths where the SearchBar should not be shown
-  const hideSearchBarPaths = ['/register', '/signin', '/contact-us', '/brands', '/blog', '/forgot-password', '/profile'];
+  const hideSearchBarPaths = ['/register', '/signin', '/contact-us', '/brands', '/blog', '/forgot-password', '/profile','/'];
   const showSearchBar = !hideSearchBarPaths.includes(location.pathname);
 
   return (

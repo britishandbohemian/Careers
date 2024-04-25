@@ -4,10 +4,12 @@
   justify-content: center;
   align-items: center;
   padding: 20px;
+ 
 }
 
 .search-form {
   border: 2px solid rgb(135, 135, 135);
+  background-color: white;
   border-radius: 10px;
   display: flex;
   flex-direction: column; /* Changed to stack elements vertically */

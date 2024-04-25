@@ -28,10 +28,11 @@
   justify-content: space-between;
 }
 
-.card-title {
+.cardTitle {
   font-size: 16px; /* Suitable font size for mobile and desktop */
   font-weight: bold;
   color: #333;
+  max-height: 3rem;
 }
 
 .card {

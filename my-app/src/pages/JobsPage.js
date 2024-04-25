@@ -1,38 +1,44 @@
 import React, { useState, useEffect } from 'react';
 import './Jobs.css';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { getAllJobs } from '../FirebaseOperations';
+import { db } from '../firebaseConfig';
+import { collection, onSnapshot, query } from 'firebase/firestore';
+import { format } from 'date-fns'; // Make sure to install date-fns if not already done
 
 const Jobs = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [selectedJob, setSelectedJob] = useState(null);
   const [jobs, setJobs] = useState([]);
+  const [filteredJobs, setFilteredJobs] = useState([]);
 
   useEffect(() => {
-    const fetchAndFilterJobs = async () => {
-      const fetchedJobs = await getAllJobs();
-      filterJobs(fetchedJobs, location.search);
-    };
-
-    fetchAndFilterJobs();
-  }, [location.search]);
-
-  // Function to filter jobs based on search parameters
-  const filterJobs = (fetchedJobs, search) => {
-    const params = new URLSearchParams(search);
-    const title = params.get('title');
-    const locations = params.get('locations') ? params.get('locations').split(',') : [];
-    
-    const filtered = fetchedJobs.filter(job => {
-      const titleMatch = title ? job.title.toLowerCase().includes(title.toLowerCase()) : true;
-      const locationMatch = locations.length ? locations.some(loc => job.location.toLowerCase().includes(loc.toLowerCase())) : true;
-      return titleMatch && locationMatch;
+    const q = query(collection(db, 'Jobs'));
+    const unsubscribe = onSnapshot(q, (querySnapshot) => {
+      const fetchedJobs = querySnapshot.docs.map(doc => {
+        const data = doc.data();
+        // Convert Firebase Timestamp to JavaScript Date object, then format
+        const postedDate = data.posted.toDate(); // assuming 'posted' is the field with the Timestamp
+        const formattedDate = format(postedDate, 'PP'); // 'PP' formats date to something like 'Jan 1, 2020'
+        return { id: doc.id, ...data, posted: formattedDate };
+      });
+      setJobs(fetchedJobs);
+      setFilteredJobs(fetchedJobs); // Initialize filtered jobs on load
     });
 
-    setJobs(filtered);
-    setSelectedJob(null); // Reset selected job on filter change
-  };
+    return () => unsubscribe();
+  }, []);
+
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const jobTitle = params.get('title');
+    const jobLocation = params.get('location');
+    const filtered = jobs.filter(job =>
+      job.title.toLowerCase().includes(jobTitle?.toLowerCase() || '') &&
+      job.location.toLowerCase().includes(jobLocation?.toLowerCase() || '')
+    );
+    setFilteredJobs(filtered);
+  }, [location.search, jobs]);
 
   const handleJobClick = (job) => {
     if (window.innerWidth < 768) {
@@ -47,14 +53,13 @@ const Jobs = () => {
       <div className="container-fluid">
         <div className="row">
           <div className="col-md-5 job-listings">
-            {jobs.map((job) => (
+            {filteredJobs.map((job) => (
               <div className="job-card" key={job.id} onClick={() => handleJobClick(job)}>
                 <h1>{job.title}</h1>
                 <h2>{job.company}</h2>
-                <p>{job.description.slice(0, 100)}...</p>
-                <button className="jobbtn" onClick={() => handleJobClick(job)}>
-                  View Details
-                </button>
+                <small>Posted on: {job.posted}</small>
+                <p>{job.description ? job.description.slice(0, 100) : "Description Unavailable"}...</p>
+                <button className="jobbtn" onClick={() => handleJobClick(job)}>View Details</button>
               </div>
             ))}
           </div>

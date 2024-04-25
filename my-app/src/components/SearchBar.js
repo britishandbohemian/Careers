@@ -6,7 +6,7 @@ import './SearchBar.css';
 function SearchBar() {
   const [jobTitle, setJobTitle] = useState('');
   const [location, setLocation] = useState('');
-  const [selectedLocations, setSelectedLocations] = useState([]);
+  const [selectedLocations, setSelectedLocations] = useState([]);  // Define the state here
   const [suggestions, setSuggestions] = useState([]);
   const navigate = useNavigate();
 
@@ -33,6 +33,7 @@ function SearchBar() {
         })));
       } catch (error) {
         console.error('Failed to fetch locations:', error);
+        setSuggestions([]);
       }
     } else {
       setSuggestions([]);
@@ -50,12 +51,11 @@ function SearchBar() {
   };
 
   const clearAll = () => {
-    // Reset all state and navigate to clear URL search parameters
     setJobTitle('');
     setLocation('');
     setSelectedLocations([]);
     setSuggestions([]);
-    navigate('/jobs');  // This navigates to the jobs route without any query parameters
+    navigate('/jobs');
   };
 
   const handleSearch = () => {
@@ -91,11 +91,9 @@ function SearchBar() {
           ))}
         </ul>
         <div className='searchbtns'>
-          <button type="button" onClick={handleSearch} className="search-button">
-            Search
-          </button>
+          <button type="button" onClick={handleSearch} className="search-button">Search</button>
           <button type="button" onClick={clearAll} className="clear-button">
-            <span style={{fontWeight: 'bold'}} className="material-icons">clear</span> {/* Using Material Icons as text */}
+            <span style={{fontWeight: 'bold'}} className="material-icons">clear</span>
           </button>
         </div>
       </form>
@@ -104,7 +102,7 @@ function SearchBar() {
           <div key={index} className="breadcrumb">
             {location.label}
             <button onClick={() => removeLocation(index)} className="remove-breadcrumb">
-              <span className="material-icons">close</span> {/* Using Material Icons as text for close */}
+              <span className="material-icons">close</span>
             </button>
           </div>
         ))}

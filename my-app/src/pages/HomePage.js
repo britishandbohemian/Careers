@@ -1,25 +1,38 @@
+// Import React and the CSS module
 import React from 'react';
-import './Home.css'; // Ensure this CSS file is correctly linked
+import styles from './Home.module.css'; // Import CSS module
+import heroImage from '../images/bghero.jpeg';
+import SearchBar from '../components/SearchBar';
 
 const HomePage = () => {
+  const heroStyle = {
+    backgroundImage: `url(${heroImage})`,
+    backgroundRepeat: 'no-repeat',
+    backgroundPosition: 'center center',
+    backgroundSize: 'cover',
+    height:'100vh'
+  };
+
   return (
-    <div className="home-page">
-      <div className="block hero"></div>  // Hero block for introduction
-      <div className="block">
-        <div className="content white-block horizontal"></div>
-        <div className="content white-block horizontal"></div>
+    <div className={styles.homePage}>
+      <div className="hero" style={heroStyle}>
+        <SearchBar></SearchBar>
+        </div>  
+      <div className={styles.block}>
+        <div className={styles.content + " " + styles.horizontal}></div>
+        <div className={styles.content + " " + styles.horizontal}></div>
       </div>
-      <div className="block">
-        <div className="content white-block vertical"></div>
+      <div className={styles.block}>
+        <div className={styles.content + " " + styles.vertical}></div>
       </div>
-      <div className="block">
-        <div className="content white-block horizontal"></div>
-        <div className="content white-block vertical"></div>
+      <div className={styles.block}>
+        <div className={styles.content + " " + styles.horizontal}></div>
+        <div className={styles.content + " " + styles.vertical}></div>
       </div>
-      <div className="block">
-        <div className="content white-block horizontal"></div>
-        <div className="content white-block horizontal"></div>
-        <div className="content white-block vertical"></div>
+      <div className={styles.block}>
+        <div className={styles.content + " " + styles.horizontal}></div>
+        <div className={styles.content + " " + styles.horizontal}></div>
+        <div className={styles.content + " " + styles.vertical}></div>
       </div>
     </div>
   );

@@ -12,7 +12,7 @@ const JobDetail = () => {
   useEffect(() => {
     // Function to fetch a single job from Firestore
     const fetchJob = async () => {
-      const docRef = doc(db, 'Joba', id); // Make sure 'Joba' is your collection name
+      const docRef = doc(db, 'Jobs', id); // Make sure 'Joba' is your collection name
       const docSnap = await getDoc(docRef);
 
       if (docSnap.exists()) {

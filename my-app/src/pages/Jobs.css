@@ -4,6 +4,15 @@
   padding: 3rem 4rem; /* Adjust padding for responsiveness */
 }
 
+.search-container {
+  position: relative !important;
+  display: flex !important;
+  flex-direction: column; /* Added to align items vertically */
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
 .job-listings {
   position: sticky;
   top: 0;
