@@ -17,13 +17,15 @@ const Jobs = () => {
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       const fetchedJobs = querySnapshot.docs.map(doc => {
         const data = doc.data();
-        // Convert Firebase Timestamp to JavaScript Date object, then format
-        const postedDate = data.posted.toDate(); // assuming 'posted' is the field with the Timestamp
-        const formattedDate = format(postedDate, 'PP'); // 'PP' formats date to something like 'Jan 1, 2020'
+        const postedDate = data.posted.toDate();
+        const formattedDate = format(postedDate, 'PP');
         return { id: doc.id, ...data, posted: formattedDate };
       });
       setJobs(fetchedJobs);
-      setFilteredJobs(fetchedJobs); // Initialize filtered jobs on load
+      setFilteredJobs(fetchedJobs);
+      if (fetchedJobs.length > 0) {
+        setSelectedJob(fetchedJobs[0]); // Set the first job as selected on load
+      }
     });
 
     return () => unsubscribe();
@@ -57,8 +59,11 @@ const Jobs = () => {
               <div className="job-card" key={job.id} onClick={() => handleJobClick(job)}>
                 <h1>{job.title}</h1>
                 <h2>{job.company}</h2>
-                <small>Posted on: {job.posted}</small>
                 <p>{job.description ? job.description.slice(0, 100) : "Description Unavailable"}...</p>
+                <div style={{display:'flex', flexDirection:'column',marginBottom:'1rem'}}>
+                  <small>Posted on: {job.posted}</small>
+                  <small>Closing Date on: {job.posted}</small>
+                </div>
                 <button className="jobbtn" onClick={() => handleJobClick(job)}>View Details</button>
               </div>
             ))}

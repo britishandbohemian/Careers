@@ -1,10 +1,9 @@
 .search-container {
   display: flex;
-  flex-direction: column; /* Added to align items vertically */
+  flex-direction: column; /* Align items vertically */
   justify-content: center;
   align-items: center;
   padding: 20px;
- 
 }
 
 .search-form {
@@ -12,30 +11,51 @@
   background-color: white;
   border-radius: 10px;
   display: flex;
-  flex-direction: column; /* Changed to stack elements vertically */
+  flex-direction: column; /* Stack elements vertically */
   padding: 6px;
   width: 60%; /* Adjusted width */
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
+
 }
 
 .search-input {
   flex: 1; /* Make inputs take up full width */
   font-family: "Montserrat";
-  padding: 10px;
+  padding: 15px;
   font-size: 16px;
   border: none;
-  outline: none; /* Added to remove focus outline */
+  outline: none; /* Remove focus outline */
+}
+
+.location-input-container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  position: relative;
+
+  border-radius: 5px;
 }
 
 .autocomplete-dropdown {
+  display: none; /* Hide dropdown initially */
   list-style: none;
   margin: 0;
-  padding: 0;
-  width: 100%; /* Match width of the input */
-  position: absolute; /* Positioning relative to form */
-  z-index: 2; /* Ensures dropdown is on top of other elements */
+  padding: 8px; /* Neatly padded */
+  width: calc(100% - 20px); /* Match width of the location-input-container minus padding */
+  position: absolute;
+  top: 100%; /* Positioned right below the input */
+  left: 10px; /* Align with the padding of the container */
+  z-index: 2;
   background: white;
   border-radius: 0 0 10px 10px;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.1); /* Added for subtle shadow */
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1); /* Subtle shadow */
+}
+
+
+.autocomplete-dropdown.show {
+  display: block; /* Show dropdown when there are items */
 }
 
 .suggestion-item {
@@ -54,36 +74,36 @@
 
 .breadcrumb-container {
   display: flex;
+  align-items: center;
   flex-wrap: wrap; /* Allows multiple items to wrap in container */
   gap: 10px; /* Space between breadcrumbs */
   margin-top: 10px; /* Space below the form */
 }
 
 .breadcrumb {
-  padding: 5px 10px;
-  background-color: #e0e0e0;
-  border-radius: 15px;
-  display: flex;
-  align-items: center;
+  padding: 5px;
+  margin-right: 5px; /* Small space between breadcrumbs */
+  background-color: #f0f0f0; /* Light grey background, minimalistic */
+  border-radius: 2px; /* Slight rounding of corners */
+  font-size: 14px; /* Smaller text */
 }
 
 .remove-breadcrumb {
-  margin-left: 5px;
   background-color: transparent;
   border: none;
-  color: red;
   cursor: pointer;
 }
+
 
 @media screen and (max-width: 768px) {
   .search-form {
     width: 100%; /* Full width on smaller screens */
   }
 
-
   .search-input, .search-button {
     width: 100%; /* Full width for inputs and button on mobile */
     margin-bottom: 10px; /* Add space between elements */
+    border: none;
   }
 
   .searchbtns{
@@ -91,7 +111,6 @@
     grid-template-columns: 80% 1fr !important;
   }
 }
-
 
 .searchbtns{
   display: grid;

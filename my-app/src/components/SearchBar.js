@@ -6,7 +6,7 @@ import './SearchBar.css';
 function SearchBar() {
   const [jobTitle, setJobTitle] = useState('');
   const [location, setLocation] = useState('');
-  const [selectedLocations, setSelectedLocations] = useState([]);  // Define the state here
+  const [selectedLocations, setSelectedLocations] = useState([]);
   const [suggestions, setSuggestions] = useState([]);
   const navigate = useNavigate();
 
@@ -41,9 +41,9 @@ function SearchBar() {
   };
 
   const selectLocation = (suggestion) => {
-    setLocation('');
-    setSuggestions([]);
     setSelectedLocations(prev => [...prev, suggestion]);
+    setSuggestions([]);
+    setLocation('');  // Clear input on selection
   };
 
   const removeLocation = (index) => {
@@ -68,28 +68,38 @@ function SearchBar() {
         <input
           type="text"
           className="search-input"
-          placeholder="Job title, Keyword, Field"
+          placeholder="Job title, Company name"
           value={jobTitle}
           onChange={handleInputChange}
         />
-        <input
-          type="text"
-          className="search-input"
-          placeholder="Type to search for a location"
-          value={location}
-          onChange={handleLocationChange}
-        />
-        <ul className="autocomplete-dropdown">
-          {suggestions.map(suggestion => (
-            <li
-              key={suggestion.label}
-              onClick={() => selectLocation(suggestion)}
-              className="suggestion-item"
-            >
-              {suggestion.label}
-            </li>
+        <div className="location-input-container">
+          {selectedLocations.map((location, index) => (
+            <div key={index} className="breadcrumb">
+              {location.label}
+              <button onClick={() => removeLocation(index)} className="remove-breadcrumb">
+                <span style={{color:'black'}} className="material-icons">close</span>
+              </button>
+            </div>
           ))}
-        </ul>
+          <input
+            type="text"
+            className="search-input"
+            placeholder={selectedLocations.length > 0 ? '' : 'Type to search for a location'}
+            value={location}
+            onChange={handleLocationChange}
+          />
+          <div className={`autocomplete-dropdown ${suggestions.length > 0 ? 'show' : ''}`}>
+            {suggestions.map(suggestion => (
+              <li
+                key={suggestion.label}
+                onClick={() => selectLocation(suggestion)}
+                className="suggestion-item"
+              >
+                {suggestion.label}
+              </li>
+            ))}
+          </div>
+        </div>
         <div className='searchbtns'>
           <button type="button" onClick={handleSearch} className="search-button">Search</button>
           <button type="button" onClick={clearAll} className="clear-button">
@@ -97,16 +107,6 @@ function SearchBar() {
           </button>
         </div>
       </form>
-      <div className="breadcrumb-container">
-        {selectedLocations.map((location, index) => (
-          <div key={index} className="breadcrumb">
-            {location.label}
-            <button onClick={() => removeLocation(index)} className="remove-breadcrumb">
-              <span className="material-icons">close</span>
-            </button>
-          </div>
-        ))}
-      </div>
     </div>
   );
 }
